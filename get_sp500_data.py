@@ -6,11 +6,7 @@ data_table = pd.read_html(sp500url)
 tickers = data_table[0]['Symbol'].tolist()
 
 for i in range(len(tickers)):
-    if tickers[i] == 'BRK.B':
-        tickers[i] = 'BRK-B'
-    elif tickers[i] == 'BF.B':
-        tickers[i] = 'BF-B'
-
+    tickers[i] = tickers[i].replace('.', '-')
 
 # Get key financial information for all stock tickers
 def get_company_info(ticker):
@@ -68,7 +64,6 @@ def get_company_info(ticker):
     except Exception as e:
         print(f"Error fetching data for {ticker}: {e}")
         return None
-
 
 # Create dataframe that contains all S&P 500 stocks
 sp500_data = []
